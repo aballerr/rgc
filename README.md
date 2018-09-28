@@ -1,0 +1,1 @@
+When this is done, it will help easy the process of generating react related stuff
