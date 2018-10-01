@@ -3,9 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "rgc": "index.js"
+  },
+  "preferGlobal": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.18.0",
+    "fs-extra": "^7.0.0"
+  }
 }
