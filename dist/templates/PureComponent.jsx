@@ -1,4 +1,3 @@
-import React from 'react';
 
 const REACT_TEMPLATE = ({ children }) => (
   <div className="REACT_TEMPLATE_CLASSNAME">
@@ -6,4 +5,3 @@ const REACT_TEMPLATE = ({ children }) => (
   </div>
 );
 
-export default REACT_TEMPLATE;

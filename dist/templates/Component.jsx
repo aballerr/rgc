@@ -1,4 +1,3 @@
-import react, { Component } from 'react';
 
 class REACT_TEMPLATE extends Component {
   render() {
@@ -10,4 +9,3 @@ class REACT_TEMPLATE extends Component {
   }
 }
 
-export default REACT_TEMPLATE;
