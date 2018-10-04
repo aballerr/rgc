@@ -1,12 +1,13 @@
+
 module.exports = [
   {
     type: 'confirm',
-    name: 'shouldCreateFolder',
-    message: 'Should we create a new folder with your component in it?'
+    name: 'placeInOwnDirectory',
+    message: 'Should we create a new directory with your component in it?'
   },
   {
     type: 'confirm',
-    name: 'shouldCreatePropsValidation',
+    name: 'createPropsValidation',
     message: 'Would you like to include props validation in all your new files by default?'
   },
   {
