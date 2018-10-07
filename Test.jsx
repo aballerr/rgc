@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './Test.css';
 
 class Test extends Component {
   render() {
     return (
-      <div className="test">
+      <div className="Test">
         {this.props.children}
       </div>
     );
