@@ -1,10 +1,10 @@
 
 module.exports = [
-  // {
-  //   type: 'confirm',
-  //   name: 'placeInOwnDirectory',
-  //   message: 'Should we create a new directory with your component in it?'
-  // },
+  {
+    type: 'confirm',
+    name: 'placeInOwnDirectory',
+    message: 'Would you like a folder created to place your component in?'
+  },
   {
     type: 'confirm',
     name: 'createPropsValidation',
