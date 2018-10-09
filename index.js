@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+
 'use strict';
 
 const fs = require('fs-extra');
@@ -12,6 +13,8 @@ const classComponent = require('./templates/class-component');
 const questions = require('./bin/questions');
 const currentPath = process.cwd();
 const touch = require('touch');
+const abc = require('./bin/commandFunctions');
+
 
 
 program
@@ -19,13 +22,20 @@ program
   .usage('help for commands and options')
   .command('new <name>')
   .option('-p, --pure', 'creates a pure component')
+  .option('-n, --no-style', 'it will not create a stylesheet if you have one configured')
+  .option('-o, --overwrite', 'will overwrites file it if exists')
   .description('generates a new component')
   .action(function (name, cmd) {
     const options = config.get();
 
     if (cmd.pure)
       options.componentType = 'pure';
-    buildReactComponent(name, options);
+    if (!cmd.style)
+      options.cssType = 'none';
+
+    options.overwrite = cmd.overwrite;
+
+    abc.buildReactComponent(name, options);
   });
 
 program
@@ -44,19 +54,7 @@ program
   });
 
 
-
-program.arguments('<arg>').action((arg) => {
-  // console.log(chalk.red(`\nInvalid command "${arg}", please below for valid commands.\n`));
-  program.outputHelp();
-});
-
-
 program.parse(process.argv);
-
-if (!program.args.length) {
-  // console.log(chalk.red('\nNo command given, please check below for valid commands\n'));
-  // program.outputHelp();
-}
 
 
 
@@ -91,14 +89,14 @@ function buildReactComponent(name, options) {
   const cssFileName = `${currentPath}/${cssBuildPath}`;
 
 
-  if (fs.existsSync(reactFileName)) {
+  if (fs.existsSync(reactFileName) && !options.overwrite) {
     console.log(chalk.red(`\nERROR: React file already exists at: "${reactBuildPath}"\n`));
   } else {
     fs.outputFile(reactFileName, componetFile)
       .then(() => {
         console.log(chalk.green(`CREATED ${reactBuildPath}`));
 
-        if (fs.existsSync(cssFileName)) {
+        if (fs.existsSync(cssFileName) && !options.overwrite) {
           console.log(chalk.red(`ERROR: CSS file already exists at "${cssBuildPath }"`));
         } else if (options.cssType !== 'none') {
           touch(cssFileName, '');
@@ -122,7 +120,15 @@ function setConfigOptions() {
 }
 
 function printConfigOptions() {
-  console.log(chalk.green("\nYour config options are:\n"));
-  console.log(config.get());
+  console.log(chalk.bold("\nYour config options are:\n"));
+  let configOptions = config.get();
+  let keys = Object.keys(configOptions);
+
+  for (let i of keys) {
+    console.log((`${chalk.bold(i)}: ${configOptions[i]}`));
+  }
   console.log();
 }
+
+
+module.exports = buildReactComponent;

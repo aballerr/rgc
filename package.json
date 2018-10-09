@@ -1,6 +1,6 @@
 {
   "name": "rgc",
-  "version": "1.0.17",
+  "version": "1.0.24",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -8,30 +8,29 @@
   },
   "preferGlobal": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@angular/cli": "^6.2.4",
     "chalk": "^2.4.1",
     "commander": "^2.18.0",
     "configstore": "^4.0.0",
-    "cosmiconfig": "^5.0.6",
     "eslint": "^5.6.1",
-    "execution-time": "^1.2.0",
     "fs-extra": "^7.0.0",
-    "g": "^2.0.1",
     "inquirer": "^6.2.0",
     "node-touch": "0.0.3",
     "path": "^0.12.7",
     "process": "^0.11.10",
-    "prompt": "^1.0.0",
     "touch": "^3.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint-plugin-import": "^2.14.0"
+    "chai": "^4.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "execution-time": "^1.2.0",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2"
   },
   "keywords": [
     "react",

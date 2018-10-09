@@ -1,7 +1,10 @@
 ## React Client Tool
+> A simple (customizable) react client tool to help you quickly generate your components.
 
 ![Build Status](https://img.shields.io/badge/dependencies-up_to_date-brightgreen.svg)  ![Build Status](https://img.shields.io/badge/dev_dependencies-up_to_date-brightgreen.svg)
 ![Build Status](https://img.shields.io/badge/npm-v6.2.4-blue.svg) ![Build Status](https://img.shields.io/badge/license-MIT-green.svg)
+
+
 
 Please send feedback to: aball9423@gmail.com
 Thanks!
@@ -11,7 +14,7 @@ The purpose of this node module is to be a simple react client tool.  For now, i
 ## Installation
 	$npm install -g rgc
 ## Prerequisites
-I haven't had time to test it's backward comparability yet, but it's compatible for node v8.12.0 at the least
+I haven't had time to test its backward comparability yet, but it's compatible for node v6.14.4 at the least
 
 
 ### Usage:
