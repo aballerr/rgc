@@ -1,5 +1,5 @@
 ## React Client Tool
-> A simple (customizable) react client tool to help you quickly generate your components.
+A simple (customizable) react client tool to help you quickly generate your components.
 
 ![Build Status](https://img.shields.io/badge/dependencies-up_to_date-brightgreen.svg)  ![Build Status](https://img.shields.io/badge/dev_dependencies-up_to_date-brightgreen.svg)
 ![Build Status](https://img.shields.io/badge/npm-v6.2.4-blue.svg) ![Build Status](https://img.shields.io/badge/license-MIT-green.svg)
@@ -22,7 +22,13 @@ I haven't had time to test its backward comparability yet, but it's compatible f
 	$rgc --help
 
 ### Generating a new component
-	$rgc new COMPONENT_NAME
+    $rgc new COMPONENT_NAME
+    
+    Options:
+        -p, --pure       creates a pure component
+        -n, --no-style   it will not create a stylesheet if you have one configured
+        -o, --overwrite  will overwrite files if they exist
+        -h, --help       output usage information
 ### Setting Config Options
 	$rgc config
 ### To Print Config Options
