@@ -16,6 +16,7 @@ program
   .command('new <name>')
   .option('-p, --pure', 'creates a pure component')
   .option('-s, --style [style]', 'it will create a file sheet along with your component')
+  .option('-t, --test', 'it will create a test along with your component')
   .option('-d, --dir', 'it will place the file in it\'s own directory')
   .option('-o, --overwrite', 'will overwrites file it if exists')
   .description('generates a new component')
@@ -60,7 +61,8 @@ function getOptions(cmd) {
   let {
     pure,
     style,
-    dir
+    dir,
+    test
   } = cmd;
 
 
@@ -75,7 +77,10 @@ function getOptions(cmd) {
 
   if (dir) {
     options.placeInOwnDirectory = true;
+  }
 
+  if(test) {
+    options.includeTest = true;
   }
 
   options.overwrite = cmd.overwrite;

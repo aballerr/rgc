@@ -1,6 +1,6 @@
 {
   "name": "rgc",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -30,7 +30,8 @@
     "eslint-plugin-import": "^2.14.0",
     "execution-time": "^1.2.0",
     "mocha": "^5.2.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "shell-exec": "^1.0.2"
   },
   "keywords": [
     "react",
