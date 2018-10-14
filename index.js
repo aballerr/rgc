@@ -15,18 +15,14 @@ program
   .usage('help for commands and options')
   .command('new <name>')
   .option('-p, --pure', 'creates a pure component')
-  .option('-n, --no-style', 'it will not create a stylesheet if you have one configured')
+  .option('-s, --style [style]', 'it will create a file sheet along with your component')
+  .option('-d, --dir', 'it will place the file in it\'s own directory')
   .option('-o, --overwrite', 'will overwrites file it if exists')
   .description('generates a new component')
   .action(function (name, cmd) {
-    const options = config.get();
+    let options = getOptions(cmd);
 
-    if (cmd.pure)
-      options.componentType = 'pure';
-    if (!cmd.style)
-      options.cssType = 'none';
 
-    options.overwrite = cmd.overwrite;
     commandActions.buildReactComponent(name, options);
   });
 
@@ -55,6 +51,38 @@ function setConfigOptions() {
     })
     .catch((err) => console.log(err));
 }
+
+
+
+// Set up the options for the component generator
+function getOptions(cmd) {
+  let options = config.get();
+  let {
+    pure,
+    style,
+    dir
+  } = cmd;
+
+
+  if (pure)
+    options.componentType = 'pure';
+
+  if (style) {
+    if (typeof style === 'string')
+      options.cssType = style;
+    else options.cssType = '.css';
+  }
+
+  if (dir) {
+    options.placeInOwnDirectory = true;
+
+  }
+
+  options.overwrite = cmd.overwrite;
+
+  return options;
+}
+
 
 function printConfigOptions() {
   console.log(chalk.bold("\nYour config options are:\n"));

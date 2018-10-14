@@ -25,10 +25,12 @@ I haven't had time to test its backward comparability yet, but it's compatible f
     $rgc new COMPONENT_NAME
     
     Options:
-        -p, --pure       creates a pure component
-        -n, --no-style   it will not create a stylesheet if you have one configured
-        -o, --overwrite  will overwrite files if they exist
-        -h, --help       output usage information
+        -p, --pure               it will create a pure component
+        -d, --dir                it will place the file in it's own directory
+        -o, --overwrite          it will overwrite files if they exist
+        -s, --style [extension]  it will aditionally create a file sheet
+        -h, --help               output usage information
+         
 ### Setting Config Options
 	$rgc config
 ### To Print Config Options
