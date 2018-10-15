@@ -24,7 +24,7 @@ before(() => {
   rgc('pureComponent', options);
 });
 
-describe('testing this framework and stuff', () => {
+describe('Testing the create component function', () => {
   it('should create a class component', function (done) {
     fs.readFile(templatePath, 'utf8', (err, testData) => {
       if (err)

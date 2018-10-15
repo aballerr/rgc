@@ -28,6 +28,7 @@ I haven't had time to test its backward comparability yet, but it's compatible f
         -p, --pure               it will create a pure component
         -d, --dir                it will place the file in it's own directory
         -o, --overwrite          it will overwrite files if they exist
+        -t, --test           it will create a test along with your component
         -s, --style [extension]  it will aditionally create a file sheet
         -h, --help               output usage information
          
