@@ -1,5 +1,5 @@
 /* global it, describe, before, after */
-const rgc = require('../lib/commandActions').buildReactComponent;
+const rgc = require('../lib/commandActions');
 const expect = require('chai').expect;
 const fs = require('fs');
 const currentPath = process.cwd();

@@ -7,11 +7,12 @@ const version = require('./package.json')['version'];
 const config = require('./lib/configstore');
 const questions = require('./lib/questions');
 const commandActions = require('./lib/commandActions');
+const shell = require('shelljs');
 
 program
   .version(version)
   .usage('help for commands and options')
-  .command('new <name>')
+  .command('g <name>')
   .option('-p, --pure', 'creates a pure component')
   .option('-s, --style [style]', 'it will create a file sheet along with your component')
   .option('-t, --test', 'it will create a test along with your component')
@@ -19,34 +20,29 @@ program
   .option('-o, --overwrite', 'will overwrites file it if exists')
   .option('-l, --lifecycle', 'it will add life cycle methods')
   .description('generates a new component')
-  .action(function(name, cmd) {
-    let options = getOptions(cmd);
-
-    commandActions.buildReactComponent(name, options);
-  });
+  .action((name, cmd) => commandActions(name, getOptions(cmd)));
 
 program
   .command('config')
   .description('allows you to set up your own personalize configuration')
-  .action(function() {
-    setConfigOptions();
-  });
+  .action(() => setConfigOptions());
 
 program
   .command('print')
   .description('Prints out your currently configured options')
-  .action(function() {
-    printConfigOptions();
-  });
+  .action(() => printConfigOptions());
+
+program
+  .command('new <name>')
+  .description("generates a new react app using Facebook's create-react-app")
+  .action(async name => shell.exec(`node_modules/.bin/create-react-app ${name}`));
 
 program.parse(process.argv);
 
 function setConfigOptions() {
   inquirer
     .prompt(questions)
-    .then(answers => {
-      config.set(answers);
-    })
+    .then(answers => config.set(answers))
     .catch(err => console.log(err));
 }
 
@@ -57,18 +53,11 @@ function getOptions(cmd) {
 
   if (pure) options.componentType = 'pure';
 
-  if (style) {
-    if (typeof style === 'string') options.cssType = style;
-    else options.cssType = '.css';
-  }
+  if (style) options.cssType = typeof style === 'string' ? style : '.css';
 
-  if (dir) {
-    options.placeInOwnDirectory = true;
-  }
+  if (dir) options.placeInOwnDirectory = true;
 
-  if (test) {
-    options.includeTest = true;
-  }
+  if (test) options.includeTest = true;
 
   options.overwrite = cmd.overwrite;
 
@@ -80,8 +69,8 @@ function printConfigOptions() {
   let configOptions = config.get();
   let keys = Object.keys(configOptions);
 
-  for (let i of keys) {
-    console.log(`${chalk.bold(i)}: ${configOptions[i]}`);
+  for (let key of keys) {
+    console.log(`${chalk.bold(key)}: ${configOptions[key]}`);
   }
   console.log();
 }

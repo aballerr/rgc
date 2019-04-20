@@ -23,7 +23,7 @@ describe('Creating a component via the command line', () => {
   });
 
   it('should create a component', done => {
-    shellExec(`rgc new ${name}`).then(success => {
+    shellExec(`rgc g ${name}`).then(success => {
       let stderr = success.stderr;
       expect(stderr).to.equal('');
       done();
@@ -31,7 +31,7 @@ describe('Creating a component via the command line', () => {
   });
 
   it('should overwrite a component', done => {
-    shellExec(`rgc new ${name} -o`).then(success => {
+    shellExec(`rgc g ${name} -o`).then(success => {
       let stderr = success.stderr;
       expect(stderr).to.equal('');
       done();
@@ -39,7 +39,7 @@ describe('Creating a component via the command line', () => {
   });
 
   it('should not overwrite a component', done => {
-    shellExec(`rgc new ${name}`).then(success => {
+    shellExec(`rgc g ${name}`).then(success => {
       let stderr = success.stderr;
 
       expect(stderr).to.not.equal('');
@@ -48,7 +48,7 @@ describe('Creating a component via the command line', () => {
   });
 
   it('should create a pure component', done => {
-    shellExec(`rgc new pureComponent -p`)
+    shellExec(`rgc g pureComponent -p`)
       .then(success => {
         fs.readFile(`${process.cwd()}/PureComponent.jsx`, 'utf8').then(data => {
           fs.readFile(`${process.cwd()}/tests/filesToCompare/PureComponent.jsx`, 'utf8')
@@ -93,7 +93,7 @@ describe("testing adding css and tests when they're not set in the options", () 
   });
 
   it('should create a css file', done => {
-    shellExec(`rgc new ${name} -s .css`)
+    shellExec(`rgc g ${name} -s .css`)
       .then(() => {
         expect(fs.existsSync(`${path}.css`)).to.equal(true);
         removeAllFiles(done);
@@ -104,7 +104,7 @@ describe("testing adding css and tests when they're not set in the options", () 
   });
 
   it('should create a test file', done => {
-    shellExec(`rgc new ${name} -t`)
+    shellExec(`rgc g ${name} -t`)
       .then(() => {
         expect(fs.existsSync(`${path}.test.js`)).to.equal(true);
         removeAllFiles(done);
@@ -115,7 +115,7 @@ describe("testing adding css and tests when they're not set in the options", () 
   });
 
   it('should create and place the files in a directory', done => {
-    shellExec(`rgc new ${name} -s .css -t -d`)
+    shellExec(`rgc g ${name} -s .css -t -d`)
       .then(() => {
         expect(fs.existsSync(`${path}`)).to.equal(true);
         expect(fs.existsSync(`${path}/${name}.jsx`)).to.equal(true);
