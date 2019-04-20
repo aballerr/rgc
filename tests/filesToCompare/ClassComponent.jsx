@@ -4,11 +4,7 @@ import './ClassComponent.css';
 
 class ClassComponent extends Component {
   render() {
-    return (
-      <div className="classComponent">
-        {this.props.children}
-      </div>
-    );
+    return <div className="classComponent">{this.props.children}</div>;
   }
 }
 
