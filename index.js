@@ -1,12 +1,12 @@
 #! /usr/bin/env node
 'use strict';
 const program = require('commander');
-const version = require('./package.json')['version'];
-const commitFiles = require('./lib/commit-files');
-const commandActions = require('./lib/commandActions');
-const shell = require('shelljs');
 const path = require('path');
+const shell = require('shelljs');
+const commandActions = require('./lib/commandActions');
+const commitFiles = require('./lib/commit-files');
 const { printConfigOptions, setConfigOptions, getOptions } = require('./lib/config-options');
+const version = require('./package.json')['version'];
 
 program
   .version(version)
@@ -36,7 +36,7 @@ program
 
 program
   .command('commit')
-  .description('Allows you to commit your own presets, such as a linter')
+  .description('Allows you to commit your own presets, such as a .eslint file or a .prettierfile, etc')
   .action(file => commitFiles(file));
 
 program

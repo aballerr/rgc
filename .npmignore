@@ -2,7 +2,7 @@
 .prettierrc
 .npmignore
 .vscode/
-commits/*
+committed-files/*
 commit.sh
 tests/buildAndRun.sh
 tests/Dockerfile
