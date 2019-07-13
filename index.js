@@ -5,8 +5,8 @@ const path = require('path');
 const shell = require('shelljs');
 const fs = require('fs');
 const commandActions = require('./lib/commandActions');
-const commitFiles = require('./lib/commit-files');
-const { printConfigOptions, setConfigOptions, getOptions } = require('./lib/config-options');
+const { commitFile, getCommittedFiles } = require('./lib/commit-files');
+const { getOptions, printConfigOptions, setConfigOptions } = require('./lib/config-options');
 const version = require('./package.json')['version'];
 
 //If committed-files folder does not exist, create
@@ -34,6 +34,17 @@ program
   .action(async name => {
     let nodeModulesPath = path.join(__dirname, `node_modules/.bin/create-react-app ${name}`);
     await shell.exec(nodeModulesPath);
+    let files = getCommittedFiles();
+
+    if (files.length) {
+      for (let file of files) {
+        let filepath = `${process.cwd()}/${name}/${file}`;
+        let filereadpath = `${__dirname}/committed-files/${file}`;
+        let readfile = fs.readFileSync(filereadpath, 'utf8');
+        fs.writeFileSync(filepath, readfile);
+        console.log(`Successfully written ${file} to ${filepath}`);
+      }
+    }
   });
 
 program
@@ -44,7 +55,7 @@ program
 program
   .command('commit')
   .description('Allows you to commit your own presets, such as a .eslint file or a .prettierfile, etc')
-  .action(file => commitFiles(file));
+  .action(file => commitFile(file));
 
 program
   .command('print')
