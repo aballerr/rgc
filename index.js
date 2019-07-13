@@ -3,10 +3,17 @@
 const program = require('commander');
 const path = require('path');
 const shell = require('shelljs');
+const fs = require('fs');
 const commandActions = require('./lib/commandActions');
 const commitFiles = require('./lib/commit-files');
 const { printConfigOptions, setConfigOptions, getOptions } = require('./lib/config-options');
 const version = require('./package.json')['version'];
+
+//If committed-files folder does not exist, create
+const folderPath = `${__dirname}/committed-files/`;
+if (!fs.existsSync(folderPath)) {
+  fs.mkdirSync(folderPath);
+}
 
 program
   .version(version)
