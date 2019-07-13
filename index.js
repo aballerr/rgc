@@ -1,13 +1,12 @@
 #! /usr/bin/env node
 'use strict';
-const chalk = require('chalk');
 const program = require('commander');
-const inquirer = require('inquirer');
 const version = require('./package.json')['version'];
-const config = require('./lib/configstore');
-const questions = require('./lib/questions');
+const commitFiles = require('./lib/commit-files');
 const commandActions = require('./lib/commandActions');
 const shell = require('shelljs');
+const path = require('path');
+const { printConfigOptions, setConfigOptions, getOptions } = require('./lib/config-options');
 
 program
   .version(version)
@@ -23,54 +22,26 @@ program
   .action((name, cmd) => commandActions(name, getOptions(cmd)));
 
 program
+  .command('new <name>')
+  .description("generates a new react app using Facebook's create-react-app")
+  .action(async name => {
+    let nodeModulesPath = path.join(__dirname, `node_modules/.bin/create-react-app ${name}`);
+    await shell.exec(nodeModulesPath);
+  });
+
+program
   .command('config')
   .description('allows you to set up your own personalize configuration')
   .action(() => setConfigOptions());
+
+program
+  .command('commit')
+  .description('Allows you to commit your own presets, such as a linter')
+  .action(file => commitFiles(file));
 
 program
   .command('print')
   .description('Prints out your currently configured options')
   .action(() => printConfigOptions());
 
-program
-  .command('new <name>')
-  .description("generates a new react app using Facebook's create-react-app")
-  .action(async name => shell.exec(`node_modules/.bin/create-react-app ${name}`));
-
 program.parse(process.argv);
-
-function setConfigOptions() {
-  inquirer
-    .prompt(questions)
-    .then(answers => config.set(answers))
-    .catch(err => console.log(err));
-}
-
-// Set up the options for the component generator
-function getOptions(cmd) {
-  let options = config.get();
-  let { pure, style, dir, test } = cmd;
-
-  if (pure) options.componentType = 'pure';
-
-  if (style) options.cssType = typeof style === 'string' ? style : '.css';
-
-  if (dir) options.placeInOwnDirectory = true;
-
-  if (test) options.includeTest = true;
-
-  options.overwrite = cmd.overwrite;
-
-  return options;
-}
-
-function printConfigOptions() {
-  console.log(chalk.bold('\nYour config options are:\n'));
-  let configOptions = config.get();
-  let keys = Object.keys(configOptions);
-
-  for (let key of keys) {
-    console.log(`${chalk.bold(key)}: ${configOptions[key]}`);
-  }
-  console.log();
-}

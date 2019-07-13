@@ -22,7 +22,7 @@ I haven't had time to test its backward comparability yet, but it's compatible f
 
     $rgc --help
 
-### Creating a react app (uses Facebooks' create-react-app)
+### Creating a react app (uses Facebook's create-react-app)
 
     $rgc new yourreactappname
 
@@ -37,7 +37,6 @@ I haven't had time to test its backward comparability yet, but it's compatible f
         -t, --test           it will create a test along with your component
         -s, --style [extension]  it will aditionally create a file sheet
         -h, --help               output usage information
-
 
 ### Setting Config Options
 

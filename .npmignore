@@ -2,3 +2,8 @@
 .prettierrc
 .npmignore
 .vscode/
+commits/*
+commit.sh
+tests/buildAndRun.sh
+tests/Dockerfile
+tests/docker-compose.yml
