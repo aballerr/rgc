@@ -4,6 +4,8 @@
 .vscode/
 committed-files/*
 commit.sh
+node_modules/
+publish.sh
 tests/buildAndRun.sh
 tests/Dockerfile
 tests/docker-compose.yml

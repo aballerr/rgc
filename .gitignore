@@ -1,0 +1,16 @@
+node_modules/
+committed-files/*
+tests/node_modules/
+tests/docker-compose.yml
+tests/Dockerfile
+tests/package.json
+tests/package-lock.json
+tests/index.js
+tests/buildAndRun.sh
+rgc.config.js
+.vscode/
+*.css
+*.scss
+*.less
+*.sass
+*.jsx

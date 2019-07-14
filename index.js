@@ -1,11 +1,11 @@
 #! /usr/bin/env node
 'use strict';
 const program = require('commander');
-const path = require('path');
-const shell = require('shelljs');
+
 const fs = require('fs');
-const commandActions = require('./lib/commandActions');
-const { commitFile, getCommittedFiles } = require('./lib/commit-files');
+const generateComponent = require('./lib/component-generation');
+const generateNewReactApp = require('./lib/react-app-generation');
+const { commitFile } = require('./lib/commit-files');
 const { getOptions, printConfigOptions, setConfigOptions } = require('./lib/config-options');
 const version = require('./package.json')['version'];
 
@@ -26,26 +26,12 @@ program
   .option('-o, --overwrite', 'will overwrites file it if exists')
   .option('-l, --lifecycle', 'it will add life cycle methods')
   .description('generates a new component')
-  .action((name, cmd) => commandActions(name, getOptions(cmd)));
+  .action((name, cmd) => generateComponent(name, getOptions(cmd)));
 
 program
   .command('new <name>')
   .description("generates a new react app using Facebook's create-react-app")
-  .action(async name => {
-    let nodeModulesPath = path.join(__dirname, `node_modules/.bin/create-react-app ${name}`);
-    await shell.exec(nodeModulesPath);
-    let files = getCommittedFiles();
-
-    if (files.length) {
-      for (let file of files) {
-        let filepath = `${process.cwd()}/${name}/${file}`;
-        let filereadpath = `${__dirname}/committed-files/${file}`;
-        let readfile = fs.readFileSync(filereadpath, 'utf8');
-        fs.writeFileSync(filepath, readfile);
-        console.log(`Successfully written ${file} to ${filepath}`);
-      }
-    }
-  });
+  .action(name => generateNewReactApp(name));
 
 program
   .command('config')
