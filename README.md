@@ -26,7 +26,7 @@ I haven't had time to test its backward comparability yet, but it's compatible f
 
     $rgc new yourreactappname
 
-### To commit files to be added to your react app on creation in the top level directory (i.e. .eslintrc/.prettierc/etc.)
+### To commit files to be added to your react app on creation in the top level directory (i.e. .eslintrc/.prettierc/etc.) Note: might require sudo to write files for now, will look into safer workaround. Sorry
 
     $rgc commit <file>
 
