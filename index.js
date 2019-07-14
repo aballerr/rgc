@@ -53,9 +53,12 @@ program
   .action(() => setConfigOptions());
 
 program
-  .command('commit')
+  .command('commit [file]')
   .description('Allows you to commit your own presets, such as a .eslint file or a .prettierfile, etc')
-  .action(file => commitFile(file));
+  .option('-r, --remove', 'removes specified file name')
+  .option('-p, --purge', 'removes all committed files')
+  .option('-l, --list', 'lists all committed files')
+  .action((file, cmd) => commitFile(file, cmd));
 
 program
   .command('print')

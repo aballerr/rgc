@@ -26,6 +26,15 @@ I haven't had time to test its backward comparability yet, but it's compatible f
 
     $rgc new yourreactappname
 
+### To commit files to be added to your react app on creation in the top level directory (i.e. .eslintrc/.prettierc/etc.)
+
+    $rgc commit <file>
+
+    Options:
+        -r, --remove             it will remove the speficified filename
+        -p, --purge              it will remove all committed files
+        -l, --list               it will list all currently committed files
+
 ### Generating a new component
 
     $rgc g COMPONENT_NAME
@@ -45,11 +54,3 @@ I haven't had time to test its backward comparability yet, but it's compatible f
 ### To Print Config Options
 
     $rgc print
-
-## Options:
-
--V, --version Output the version number
-
--p, --pure Create a Pure Component
-
--h, --help Output usage information
