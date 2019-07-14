@@ -7,6 +7,7 @@ const config = require('../lib/config-store');
 const original = config.get();
 const name = 'nav';
 const path = `${process.cwd()}/${name}`;
+const { getCommittedFiles } = require('../lib/commit-files');
 
 describe('Creating a component via the command line', () => {
   let options = {
@@ -131,6 +132,59 @@ describe("testing adding css and tests when they're not set in the options", () 
   after(done => {
     config.set(original);
     removeAllFiles(done);
+  });
+});
+
+describe('Testing command line commit tests', () => {
+  const name = 'readme.md';
+
+  it('should commit the readme.md to committed-files', done => {
+    shellExec(`node index.js commit ${name}`).then(output => {
+      expect(output.stderr).to.equal('');
+      expect(fs.existsSync(`${process.cwd()}/committed-files/readme.md`)).to.equal(true);
+      done();
+    });
+  });
+
+  it('should remove all files from committed-files', done => {
+    shellExec(`node index.js commit -p`).then(output => {
+      expect(output.stderr).to.equal('');
+      const files = getCommittedFiles();
+      expect(files.length).to.equal(0);
+      done();
+    });
+  });
+
+  it('should commit multiple files', done => {
+    Promise.all([shellExec(`node index.js commit readme.md`), shellExec(`node index.js commit package.json`)]).then(output => {
+      const files = getCommittedFiles();
+      expect(files.length).to.equal(2);
+      done();
+    });
+  });
+
+  it('should list all files', done => {
+    shellExec(`node index.js commit -l`).then(output => {
+      expect(output.stdout).to.equal('\nYour currently committed files are:\n1. package.json\n2. readme.md\n\n');
+      done();
+    });
+  });
+
+  it('should only remove the specified file', done => {
+    shellExec(`node index.js commit package.json -r`).then(output => {
+      const files = getCommittedFiles();
+      expect(output.stderr).to.equal('');
+      expect(files.length).to.equal(1);
+      expect(fs.existsSync(`${process.cwd()}/committed-files/readme.md`)).to.equal(true);
+      done();
+    });
+  });
+
+  //finally remove all committed files
+  after(done => {
+    shellExec(`node index.js commit -p`).then(output => {
+      done();
+    });
   });
 });
 
